@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+option go_package = "github.com/HeadGardener/TaxiApp/user-service";
+
+package userServer;
+
+service UserService {
+  rpc AcceptOrder(AcceptOrderRequest) returns(AcceptOrderResponse);
+  rpc CompleteOrder(CompleteOrderRequest) returns(CompleteOrderResponse);
+}
+
+message AcceptOrderRequest {
+  string userID = 1;
+  string orderID = 2;
+  AcceptStatus status = 3;
+}
+
+message CompleteOrderRequest {
+  string userID = 1;
+  string orderID = 2;
+  CompleteStatus status = 3;
+}
+
+enum AcceptStatus {
+  ACCEPTED = 0;
+  REJECTED = 1;
+}
+
+enum CompleteStatus {
+  SUCCESS = 0;
+  CANCELED = 1;
+}
+
+message AcceptOrderResponse {
+  string userID = 1;
+  bool confirmed = 2;
+}
+
+message CompleteOrderResponse {
+  string userID = 1;
+  bool confirmed = 2;
+}
