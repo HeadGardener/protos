@@ -19,10 +19,4 @@ message AcceptOrderRequest {
 message AcceptOrderResponse {
   string driverID = 1;
   string orderID = 2;
-  AcceptStatus status = 3;
-}
-
-enum AcceptStatus {
-  ACCEPTED = 0;
-  REJECTED = 1;
 }

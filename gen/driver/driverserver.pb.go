@@ -20,52 +20,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type AcceptStatus int32
-
-const (
-	AcceptStatus_ACCEPTED AcceptStatus = 0
-	AcceptStatus_REJECTED AcceptStatus = 1
-)
-
-// Enum value maps for AcceptStatus.
-var (
-	AcceptStatus_name = map[int32]string{
-		0: "ACCEPTED",
-		1: "REJECTED",
-	}
-	AcceptStatus_value = map[string]int32{
-		"ACCEPTED": 0,
-		"REJECTED": 1,
-	}
-)
-
-func (x AcceptStatus) Enum() *AcceptStatus {
-	p := new(AcceptStatus)
-	*p = x
-	return p
-}
-
-func (x AcceptStatus) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (AcceptStatus) Descriptor() protoreflect.EnumDescriptor {
-	return file_driverserver_proto_enumTypes[0].Descriptor()
-}
-
-func (AcceptStatus) Type() protoreflect.EnumType {
-	return &file_driverserver_proto_enumTypes[0]
-}
-
-func (x AcceptStatus) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use AcceptStatus.Descriptor instead.
-func (AcceptStatus) EnumDescriptor() ([]byte, []int) {
-	return file_driverserver_proto_rawDescGZIP(), []int{0}
-}
-
 type AcceptOrderRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -150,9 +104,8 @@ type AcceptOrderResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	DriverID string       `protobuf:"bytes,1,opt,name=driverID,proto3" json:"driverID,omitempty"`
-	OrderID  string       `protobuf:"bytes,2,opt,name=orderID,proto3" json:"orderID,omitempty"`
-	Status   AcceptStatus `protobuf:"varint,3,opt,name=status,proto3,enum=driverServer.AcceptStatus" json:"status,omitempty"`
+	DriverID string `protobuf:"bytes,1,opt,name=driverID,proto3" json:"driverID,omitempty"`
+	OrderID  string `protobuf:"bytes,2,opt,name=orderID,proto3" json:"orderID,omitempty"`
 }
 
 func (x *AcceptOrderResponse) Reset() {
@@ -201,13 +154,6 @@ func (x *AcceptOrderResponse) GetOrderID() string {
 	return ""
 }
 
-func (x *AcceptOrderResponse) GetStatus() AcceptStatus {
-	if x != nil {
-		return x.Status
-	}
-	return AcceptStatus_ACCEPTED
-}
-
 var File_driverserver_proto protoreflect.FileDescriptor
 
 var file_driverserver_proto_rawDesc = []byte{
@@ -221,18 +167,12 @@ var file_driverserver_proto_rawDesc = []byte{
 	0x07, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x49, 0x44, 0x18, 0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07,
 	0x6f, 0x72, 0x64, 0x65, 0x72, 0x49, 0x44, 0x12, 0x12, 0x0a, 0x04, 0x66, 0x72, 0x6f, 0x6d, 0x18,
 	0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x66, 0x72, 0x6f, 0x6d, 0x12, 0x0e, 0x0a, 0x02, 0x74,
-	0x6f, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x74, 0x6f, 0x22, 0x7f, 0x0a, 0x13, 0x41,
+	0x6f, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52, 0x02, 0x74, 0x6f, 0x22, 0x4b, 0x0a, 0x13, 0x41,
 	0x63, 0x63, 0x65, 0x70, 0x74, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
 	0x73, 0x65, 0x12, 0x1a, 0x0a, 0x08, 0x64, 0x72, 0x69, 0x76, 0x65, 0x72, 0x49, 0x44, 0x18, 0x01,
 	0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x64, 0x72, 0x69, 0x76, 0x65, 0x72, 0x49, 0x44, 0x12, 0x18,
 	0x0a, 0x07, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x49, 0x44, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52,
-	0x07, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x49, 0x44, 0x12, 0x32, 0x0a, 0x06, 0x73, 0x74, 0x61, 0x74,
-	0x75, 0x73, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0e, 0x32, 0x1a, 0x2e, 0x64, 0x72, 0x69, 0x76, 0x65,
-	0x72, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x41, 0x63, 0x63, 0x65, 0x70, 0x74, 0x53, 0x74,
-	0x61, 0x74, 0x75, 0x73, 0x52, 0x06, 0x73, 0x74, 0x61, 0x74, 0x75, 0x73, 0x2a, 0x2a, 0x0a, 0x0c,
-	0x41, 0x63, 0x63, 0x65, 0x70, 0x74, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x0c, 0x0a, 0x08,
-	0x41, 0x43, 0x43, 0x45, 0x50, 0x54, 0x45, 0x44, 0x10, 0x00, 0x12, 0x0c, 0x0a, 0x08, 0x52, 0x45,
-	0x4a, 0x45, 0x43, 0x54, 0x45, 0x44, 0x10, 0x01, 0x32, 0x63, 0x0a, 0x0d, 0x44, 0x72, 0x69, 0x76,
+	0x07, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x49, 0x44, 0x32, 0x63, 0x0a, 0x0d, 0x44, 0x72, 0x69, 0x76,
 	0x65, 0x72, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x52, 0x0a, 0x0b, 0x41, 0x63, 0x63,
 	0x65, 0x70, 0x74, 0x4f, 0x72, 0x64, 0x65, 0x72, 0x12, 0x20, 0x2e, 0x64, 0x72, 0x69, 0x76, 0x65,
 	0x72, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x2e, 0x41, 0x63, 0x63, 0x65, 0x70, 0x74, 0x4f, 0x72,
@@ -257,22 +197,19 @@ func file_driverserver_proto_rawDescGZIP() []byte {
 	return file_driverserver_proto_rawDescData
 }
 
-var file_driverserver_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_driverserver_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_driverserver_proto_goTypes = []interface{}{
-	(AcceptStatus)(0),           // 0: driverServer.AcceptStatus
-	(*AcceptOrderRequest)(nil),  // 1: driverServer.AcceptOrderRequest
-	(*AcceptOrderResponse)(nil), // 2: driverServer.AcceptOrderResponse
+	(*AcceptOrderRequest)(nil),  // 0: driverServer.AcceptOrderRequest
+	(*AcceptOrderResponse)(nil), // 1: driverServer.AcceptOrderResponse
 }
 var file_driverserver_proto_depIdxs = []int32{
-	0, // 0: driverServer.AcceptOrderResponse.status:type_name -> driverServer.AcceptStatus
-	1, // 1: driverServer.DriverService.AcceptOrder:input_type -> driverServer.AcceptOrderRequest
-	2, // 2: driverServer.DriverService.AcceptOrder:output_type -> driverServer.AcceptOrderResponse
-	2, // [2:3] is the sub-list for method output_type
-	1, // [1:2] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	0, // 0: driverServer.DriverService.AcceptOrder:input_type -> driverServer.AcceptOrderRequest
+	1, // 1: driverServer.DriverService.AcceptOrder:output_type -> driverServer.AcceptOrderResponse
+	1, // [1:2] is the sub-list for method output_type
+	0, // [0:1] is the sub-list for method input_type
+	0, // [0:0] is the sub-list for extension type_name
+	0, // [0:0] is the sub-list for extension extendee
+	0, // [0:0] is the sub-list for field type_name
 }
 
 func init() { file_driverserver_proto_init() }
@@ -311,14 +248,13 @@ func file_driverserver_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_driverserver_proto_rawDesc,
-			NumEnums:      1,
+			NumEnums:      0,
 			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
 		GoTypes:           file_driverserver_proto_goTypes,
 		DependencyIndexes: file_driverserver_proto_depIdxs,
-		EnumInfos:         file_driverserver_proto_enumTypes,
 		MessageInfos:      file_driverserver_proto_msgTypes,
 	}.Build()
 	File_driverserver_proto = out.File
