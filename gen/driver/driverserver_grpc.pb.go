@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DriverServiceClient interface {
-	AcceptOrder(ctx context.Context, in *AcceptOrderRequest, opts ...grpc.CallOption) (*AcceptOrderResponse, error)
+	ConsumeOrder(ctx context.Context, in *ConsumeOrderRequest, opts ...grpc.CallOption) (*ConsumeOrderRequest, error)
 }
 
 type driverServiceClient struct {
@@ -33,9 +33,9 @@ func NewDriverServiceClient(cc grpc.ClientConnInterface) DriverServiceClient {
 	return &driverServiceClient{cc}
 }
 
-func (c *driverServiceClient) AcceptOrder(ctx context.Context, in *AcceptOrderRequest, opts ...grpc.CallOption) (*AcceptOrderResponse, error) {
-	out := new(AcceptOrderResponse)
-	err := c.cc.Invoke(ctx, "/driverServer.DriverService/AcceptOrder", in, out, opts...)
+func (c *driverServiceClient) ConsumeOrder(ctx context.Context, in *ConsumeOrderRequest, opts ...grpc.CallOption) (*ConsumeOrderRequest, error) {
+	out := new(ConsumeOrderRequest)
+	err := c.cc.Invoke(ctx, "/driverServer.DriverService/ConsumeOrder", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -46,7 +46,7 @@ func (c *driverServiceClient) AcceptOrder(ctx context.Context, in *AcceptOrderRe
 // All implementations must embed UnimplementedDriverServiceServer
 // for forward compatibility
 type DriverServiceServer interface {
-	AcceptOrder(context.Context, *AcceptOrderRequest) (*AcceptOrderResponse, error)
+	ConsumeOrder(context.Context, *ConsumeOrderRequest) (*ConsumeOrderRequest, error)
 	mustEmbedUnimplementedDriverServiceServer()
 }
 
@@ -54,8 +54,8 @@ type DriverServiceServer interface {
 type UnimplementedDriverServiceServer struct {
 }
 
-func (UnimplementedDriverServiceServer) AcceptOrder(context.Context, *AcceptOrderRequest) (*AcceptOrderResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AcceptOrder not implemented")
+func (UnimplementedDriverServiceServer) ConsumeOrder(context.Context, *ConsumeOrderRequest) (*ConsumeOrderRequest, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ConsumeOrder not implemented")
 }
 func (UnimplementedDriverServiceServer) mustEmbedUnimplementedDriverServiceServer() {}
 
@@ -70,20 +70,20 @@ func RegisterDriverServiceServer(s grpc.ServiceRegistrar, srv DriverServiceServe
 	s.RegisterService(&DriverService_ServiceDesc, srv)
 }
 
-func _DriverService_AcceptOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AcceptOrderRequest)
+func _DriverService_ConsumeOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ConsumeOrderRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(DriverServiceServer).AcceptOrder(ctx, in)
+		return srv.(DriverServiceServer).ConsumeOrder(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/driverServer.DriverService/AcceptOrder",
+		FullMethod: "/driverServer.DriverService/ConsumeOrder",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(DriverServiceServer).AcceptOrder(ctx, req.(*AcceptOrderRequest))
+		return srv.(DriverServiceServer).ConsumeOrder(ctx, req.(*ConsumeOrderRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -96,8 +96,8 @@ var DriverService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*DriverServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "AcceptOrder",
-			Handler:    _DriverService_AcceptOrder_Handler,
+			MethodName: "ConsumeOrder",
+			Handler:    _DriverService_ConsumeOrder_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
