@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option go_package = "github.com/HeadGardener/TaxiApp/driver-service";
+
+package driverServer;
+
+service DriverService {
+  rpc AcceptOrder(AcceptOrderRequest) returns(AcceptOrderResponse);
+}
+
+message AcceptOrderRequest {
+  string driverID = 1;
+  string userID = 2;
+  string orderID = 3;
+  string from = 4;
+  string to = 5;
+}
+
+message AcceptOrderResponse {
+  string driverID = 1;
+  string orderID = 2;
+  AcceptStatus status = 3;
+}
+
+enum AcceptStatus {
+  ACCEPTED = 0;
+  REJECTED = 1;
+}
