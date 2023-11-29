@@ -5,10 +5,10 @@ option go_package = "github.com/HeadGardener/TaxiApp/driver-service";
 package driverServer;
 
 service DriverService {
-  rpc AcceptOrder(AcceptOrderRequest) returns(AcceptOrderResponse);
+  rpc ConsumeOrder(ConsumeOrderRequest) returns(ConsumeOrderRequest);
 }
 
-message AcceptOrderRequest {
+message ConsumeOrderRequest {
   string driverID = 1;
   string userID = 2;
   string orderID = 3;
@@ -16,7 +16,7 @@ message AcceptOrderRequest {
   string to = 5;
 }
 
-message AcceptOrderResponse {
+message ConsumeOrderResponse {
   string driverID = 1;
   string orderID = 2;
 }
