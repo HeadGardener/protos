@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+option go_package = "github.com/HeadGardener/TaxiApp/order-service";
+
+package orderServer;
+
+service OrderService {
+  // for user-service client
+  rpc CreateOrder(CreateOrderRequest) returns(CreateOrderResponse);
+  rpc AddComment(AddCommentRequest) returns(AddCommentResponse);
+
+  // for driver-service client
+  rpc AddDriver(AddDriverRequest) returns(AddCommentResponse);
+  rpc ProcessOrder(ProcessOrderRequest) returns(ProcessOrderRequest);
+  rpc CompleteOrder(CompleteOrderRequest) returns(CompleteOrderResponse);
+}
+
+message CreateOrderRequest {
+  string userID = 1;
+  int32 taxi_type = 2;
+  string from = 3;
+  string to = 4;
+}
+
+message CreateOrderResponse {
+  string orderID = 1;
+}
+
+message AddCommentRequest {
+  string orderID = 1;
+  string comment = 2;
+}
+
+message AddCommentResponse {
+  bool added = 1;
+}
+
+message AddDriverRequest {
+  string driverID = 1;
+  int32 taxi_type = 2;
+}
+
+message AddDriverResponse {
+  bool added = 1;
+}
+
+message ProcessOrderRequest {
+  string driverID = 1;
+  string orderID = 2;
+  AcceptStatus status = 3;
+}
+
+message ProcessOrderResponse {
+  bool processed = 1;
+}
+
+message CompleteOrderRequest {
+  string driverID = 1;
+  string orderID = 2;
+  CompleteStatus status = 3;
+  float rating = 4;
+}
+
+message CompleteOrderResponse {
+  bool completed = 1;
+}
+
+enum AcceptStatus {
+  ACCEPTED = 0;
+  REJECTED = 1;
+}
+
+enum CompleteStatus {
+  SUCCESS = 0;
+  CANCELED = 1;
+}

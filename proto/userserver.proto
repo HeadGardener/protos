@@ -16,10 +16,21 @@ message AcceptOrderRequest {
   AcceptStatus status = 4;
 }
 
+message AcceptOrderResponse {
+  string userID = 1;
+  bool confirmed = 2;
+}
+
+
 message CompleteOrderRequest {
   string userID = 1;
   string orderID = 2;
   CompleteStatus status = 3;
+}
+
+message CompleteOrderResponse {
+  string userID = 1;
+  bool confirmed = 2;
 }
 
 enum AcceptStatus {
@@ -30,14 +41,4 @@ enum AcceptStatus {
 enum CompleteStatus {
   SUCCESS = 0;
   CANCELED = 1;
-}
-
-message AcceptOrderResponse {
-  string userID = 1;
-  bool confirmed = 2;
-}
-
-message CompleteOrderResponse {
-  string userID = 1;
-  bool confirmed = 2;
 }
