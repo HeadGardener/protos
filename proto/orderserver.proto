@@ -11,7 +11,7 @@ service OrderService {
 
   // for driver-service client
   rpc AddDriver(AddDriverRequest) returns(AddCommentResponse);
-  rpc ProcessOrder(ProcessOrderRequest) returns(ProcessOrderRequest);
+  rpc ProcessOrder(ProcessOrderRequest) returns(ProcessOrderResponse);
   rpc CompleteOrder(CompleteOrderRequest) returns(CompleteOrderResponse);
 }
 
