@@ -5,7 +5,7 @@ option go_package = "github.com/HeadGardener/TaxiApp/driver-service";
 package driverServer;
 
 service DriverService {
-  rpc ConsumeOrder(ConsumeOrderRequest) returns(ConsumeOrderRequest);
+  rpc ConsumeOrder(ConsumeOrderRequest) returns(ConsumeOrderResponse);
 }
 
 message ConsumeOrderRequest {

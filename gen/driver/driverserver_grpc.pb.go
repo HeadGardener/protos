@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type DriverServiceClient interface {
-	ConsumeOrder(ctx context.Context, in *ConsumeOrderRequest, opts ...grpc.CallOption) (*ConsumeOrderRequest, error)
+	ConsumeOrder(ctx context.Context, in *ConsumeOrderRequest, opts ...grpc.CallOption) (*ConsumeOrderResponse, error)
 }
 
 type driverServiceClient struct {
@@ -33,8 +33,8 @@ func NewDriverServiceClient(cc grpc.ClientConnInterface) DriverServiceClient {
 	return &driverServiceClient{cc}
 }
 
-func (c *driverServiceClient) ConsumeOrder(ctx context.Context, in *ConsumeOrderRequest, opts ...grpc.CallOption) (*ConsumeOrderRequest, error) {
-	out := new(ConsumeOrderRequest)
+func (c *driverServiceClient) ConsumeOrder(ctx context.Context, in *ConsumeOrderRequest, opts ...grpc.CallOption) (*ConsumeOrderResponse, error) {
+	out := new(ConsumeOrderResponse)
 	err := c.cc.Invoke(ctx, "/driverServer.DriverService/ConsumeOrder", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -46,7 +46,7 @@ func (c *driverServiceClient) ConsumeOrder(ctx context.Context, in *ConsumeOrder
 // All implementations must embed UnimplementedDriverServiceServer
 // for forward compatibility
 type DriverServiceServer interface {
-	ConsumeOrder(context.Context, *ConsumeOrderRequest) (*ConsumeOrderRequest, error)
+	ConsumeOrder(context.Context, *ConsumeOrderRequest) (*ConsumeOrderResponse, error)
 	mustEmbedUnimplementedDriverServiceServer()
 }
 
@@ -54,7 +54,7 @@ type DriverServiceServer interface {
 type UnimplementedDriverServiceServer struct {
 }
 
-func (UnimplementedDriverServiceServer) ConsumeOrder(context.Context, *ConsumeOrderRequest) (*ConsumeOrderRequest, error) {
+func (UnimplementedDriverServiceServer) ConsumeOrder(context.Context, *ConsumeOrderRequest) (*ConsumeOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ConsumeOrder not implemented")
 }
 func (UnimplementedDriverServiceServer) mustEmbedUnimplementedDriverServiceServer() {}
