@@ -27,7 +27,7 @@ type OrderServiceClient interface {
 	AddComment(ctx context.Context, in *AddCommentRequest, opts ...grpc.CallOption) (*AddCommentResponse, error)
 	// for driver-service client
 	AddDriver(ctx context.Context, in *AddDriverRequest, opts ...grpc.CallOption) (*AddCommentResponse, error)
-	ProcessOrder(ctx context.Context, in *ProcessOrderRequest, opts ...grpc.CallOption) (*ProcessOrderRequest, error)
+	ProcessOrder(ctx context.Context, in *ProcessOrderRequest, opts ...grpc.CallOption) (*ProcessOrderResponse, error)
 	CompleteOrder(ctx context.Context, in *CompleteOrderRequest, opts ...grpc.CallOption) (*CompleteOrderResponse, error)
 }
 
@@ -66,8 +66,8 @@ func (c *orderServiceClient) AddDriver(ctx context.Context, in *AddDriverRequest
 	return out, nil
 }
 
-func (c *orderServiceClient) ProcessOrder(ctx context.Context, in *ProcessOrderRequest, opts ...grpc.CallOption) (*ProcessOrderRequest, error) {
-	out := new(ProcessOrderRequest)
+func (c *orderServiceClient) ProcessOrder(ctx context.Context, in *ProcessOrderRequest, opts ...grpc.CallOption) (*ProcessOrderResponse, error) {
+	out := new(ProcessOrderResponse)
 	err := c.cc.Invoke(ctx, "/orderServer.OrderService/ProcessOrder", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -93,7 +93,7 @@ type OrderServiceServer interface {
 	AddComment(context.Context, *AddCommentRequest) (*AddCommentResponse, error)
 	// for driver-service client
 	AddDriver(context.Context, *AddDriverRequest) (*AddCommentResponse, error)
-	ProcessOrder(context.Context, *ProcessOrderRequest) (*ProcessOrderRequest, error)
+	ProcessOrder(context.Context, *ProcessOrderRequest) (*ProcessOrderResponse, error)
 	CompleteOrder(context.Context, *CompleteOrderRequest) (*CompleteOrderResponse, error)
 	mustEmbedUnimplementedOrderServiceServer()
 }
@@ -111,7 +111,7 @@ func (UnimplementedOrderServiceServer) AddComment(context.Context, *AddCommentRe
 func (UnimplementedOrderServiceServer) AddDriver(context.Context, *AddDriverRequest) (*AddCommentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddDriver not implemented")
 }
-func (UnimplementedOrderServiceServer) ProcessOrder(context.Context, *ProcessOrderRequest) (*ProcessOrderRequest, error) {
+func (UnimplementedOrderServiceServer) ProcessOrder(context.Context, *ProcessOrderRequest) (*ProcessOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ProcessOrder not implemented")
 }
 func (UnimplementedOrderServiceServer) CompleteOrder(context.Context, *CompleteOrderRequest) (*CompleteOrderResponse, error) {
